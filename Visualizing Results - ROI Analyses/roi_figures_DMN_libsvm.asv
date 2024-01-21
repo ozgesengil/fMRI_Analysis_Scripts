@@ -1,0 +1,74 @@
+%load('accuracy_MDroi_MVPA1_old_N24.mat')
+load('libsvm_accuracy_3backonly_DMN_2T7-0T9.mat')
+
+
+compmat=accuracy_roi-50;
+
+for i=1:20 % for all ROIs
+
+[h(i,:),p(i,:),c(:,i)]=ttest(compmat(:,i));
+
+end
+
+
+% calculate the distance of the confidence interval from the roi means
+
+negdist=abs(c(1,:)-mean(compmat));
+posdist=abs(c(1,:)-mean(compmat));
+
+xlab={'rR_TPJ.nii', 'rR_TempP.nii', 'rR_Rsp.nii', 'rR_pIPL.nii', 'rR_PHC.nii', 'rR_PCC.nii','rR_LTC.nii', 'rR_HF.nii', 'rR_aMPFC.nii',...
+        'rL_TPJ.nii', 'rL_TempP.nii', 'rL_Rsp.nii', 'rL_pIPL.nii', 'rL_PHC.nii', 'rL_PCC.nii','rL_LTC.nii', 'rL_HF.nii', 'rL_aMPFC.nii',...
+        'rvMPFC.nii', 'rdMPFC.nii'}; 
+%x=[1:16];
+
+figure
+b=bar(mean(compmat));
+xticks([1:20])
+hold on
+
+%Plot the errorbars on top of the original means
+errorbar([1:20], mean(compmat), negdist, posdist,'k','linestyle','none');
+er.Color = [0 0 0];
+
+colorx=[0/255 153/255 76/255];
+colory=[153/255 0/255 153/255];
+
+b.FaceColor='flat';
+
+b.CData(1,:)=colorx;
+b.CData(2,:)=colorx;
+b.CData(3,:)=colorx;
+b.CData(4,:)=colorx;
+b.CData(5,:)=colorx;
+b.CData(6,:)=colorx;
+b.CData(7,:)=colorx;
+b.CData(8,:)=colorx;
+b.CData(9,:)=colorx;
+b.CData(10,:)=colorx;
+b.CData(11,:)=colorx;
+b.CData(12,:)=colorx;
+b.CData(13,:)=colorx;
+b.CData(14,:)=colorx;
+b.CData(15,:)=colorx;
+b.CData(16,:)=colorx;
+b.CData(17,:)=colorx;
+b.CData(18,:)=colorx;
+b.CData(19,:)=colorx;
+b.CData(20,:)=colorx;
+
+
+
+
+box off
+
+ax=gca;
+    ax.YMinorTick = 'off';
+    %ax.TickLength = [0 0];
+
+
+xlabel('DMN ROIs','FontSize',20);
+set(gca,'xticklabel',xlab,'FontWeight','normal','FontName','Times New Roman')
+
+xtickangle(90)
+
+hold off
