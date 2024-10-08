@@ -1,7 +1,5 @@
 % MVPA classifier for fMRI
-% Tanya Wen
-% 28/09/2016
-% edited: 03/01/2017
+
 clear all
 dbstop if error
 % add required paths
